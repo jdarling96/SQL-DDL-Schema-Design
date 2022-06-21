@@ -12,7 +12,7 @@ CREATE TABLE leagues
     end_date DATE
 );
 
-CREATE TABLE soccer 
+CREATE TABLE teams
 (
     league_id INTEGER REFERENCES leagues (id),
     team TEXT PRIMARY KEY,
