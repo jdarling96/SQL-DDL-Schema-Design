@@ -7,25 +7,25 @@ CREATE DATABASE medical_center;
 
 CREATE TABLE doctors 
 (
-    id SERIAL,
-    name TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
     on_call BOOLEAN
 
 );
 CREATE TABLE diseases
 (
-    id SERIAL,
-    name TEXT PRIMARY KEY,
-    treatable BOOLEAN
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    description TEXT
 );
 
 
 CREATE TABLE diagnosis 
 (
     id INTEGER PRIMARY KEY,
-    disease_one TEXT REFERENCES diseases (name),
-    disease_two TEXT REFERENCES diseases (name),
-    disease_three TEXT REFERENCES diseases (name)
+    disease_id INTEGER REFERENCES diseases (id),
+    visit_id_two INTEGER REFERENCES visits (id),
+    notes TEXT 
     
 );
 
@@ -44,9 +44,9 @@ CREATE TABLE patients
 CREATE TABLE visits
 (
     id SERIAL PRIMARY KEY,
-    doctor_name TEXT REFERENCES doctors (name),
+    doctor_id INTEGER REFERENCES doctors (id),
     patientid INTEGER REFERENCES patients (id),
-    diagnosisid INTEGER REFERENCES diagnosis (id)
+    date TEXT NOT NULL
 
 
 );
@@ -75,7 +75,7 @@ INSERT INTO relation (doctor_name,patientid,diagnosisid) VALUES ('Dr. Emelia Air
 INSERT INTO relation (doctor_name,patientid,diagnosisid) VALUES ('Dr. Emelia Airheart',2005,3001);
 INSERT INTO relation (doctor_name,patientid,diagnosisid) VALUES ('Dr. John Carter',2003, 1);
 
-select disease_one,treatable 
+select disease_id,description 
 from diagnosis 
-join diseases on disease_one=name 
-GROUP BY disease_one,treatable;
+join diseases on disease_id=id 
+GROUP BY disease_id,description;
