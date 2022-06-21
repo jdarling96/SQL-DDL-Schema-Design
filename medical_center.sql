@@ -41,7 +41,7 @@ CREATE TABLE patients
 
 
 );
-CREATE TABLE relation  
+CREATE TABLE visits
 (
     id SERIAL PRIMARY KEY,
     doctor_name TEXT REFERENCES doctors (name),
